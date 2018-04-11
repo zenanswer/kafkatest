@@ -17,6 +17,8 @@ if __name__ == '__main__':
 
     util.enable_default_log()
 
+    logging.getLogger().setLevel(logging.WARNING)
+
     # To consume latest messages and auto-commit offsets
     consumer = KafkaConsumer(
         'my-topic',
@@ -29,7 +31,7 @@ if __name__ == '__main__':
         for message in consumer:
             # message value and key are raw bytes -- decode if necessary!
             # e.g., for unicode: `message.value.decode('utf-8')`
-            KAC_logger.info(
+            KAC_logger.warning(
                 ">>> %s:%d:%d: key=%s value=%s"
                 % (message.topic, message.partition,
                     message.offset, message.key,

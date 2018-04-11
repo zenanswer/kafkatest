@@ -17,6 +17,8 @@ if __name__ == '__main__':
 
     util.enable_default_log()
 
+    logging.getLogger().setLevel(logging.WARNING)
+
     producer = KafkaProducer(
         bootstrap_servers=['127.0.0.1:9092'],
         value_serializer=lambda m: json.dumps(m).encode('utf8'))
@@ -24,7 +26,7 @@ if __name__ == '__main__':
     def on_send_success(record_metadata):
         # print('%'*20)
         # print(repr(record_metadata))
-        KAP_logger.info(
+        KAP_logger.warning(
             "<<< %s:%d:%d"
             % (record_metadata.topic, record_metadata.partition,
                 record_metadata.offset))
